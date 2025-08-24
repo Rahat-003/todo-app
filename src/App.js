@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import { getCurrentUser, logout } from "./utils/auth";
+import "./styles/App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [currentUser, setCurrentUser] = useState(null);
+    const [currentView, setCurrentView] = useState("login");
+
+    useEffect(() => {
+        const user = getCurrentUser();
+        if (user) {
+            setCurrentUser(user);
+            setCurrentView("dashboard");
+        }
+    }, []);
+
+    const handleLogin = (user) => {
+        setCurrentUser(user);
+        setCurrentView("dashboard");
+    };
+
+    const handleLogout = () => {
+        logout();
+        setCurrentUser(null);
+        setCurrentView("login");
+    };
+
+    const switchView = (view) => {
+        setCurrentView(view);
+    };
+
+    return (
+        <div className="App">
+            {currentView === "login" && (
+                <Login onLogin={handleLogin} switchView={switchView} />
+            )}
+            {currentView === "register" && (
+                <Register onRegister={handleLogin} switchView={switchView} />
+            )}
+            {currentView === "dashboard" && currentUser && (
+                <Dashboard user={currentUser} onLogout={handleLogout} />
+            )}
+        </div>
+    );
 }
 
 export default App;
