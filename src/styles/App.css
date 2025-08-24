@@ -10,8 +10,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #2d3436;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    color: #4a5568;
   line-height: 1.6;
   min-height: 100vh;
 }
@@ -28,18 +28,17 @@ body {
   padding: 2.5rem;
   background: rgba(255, 255, 255, 0.95);
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .auth-container h1 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #2d3436;
+  color: #4a5568;
   font-weight: 600;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 1.8rem;
 }
 
 .auth-form .form-group {
@@ -50,28 +49,29 @@ body {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #2d3436;
+  color: #4a5568;
 }
 
 .auth-form input {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 2px solid #ddd;
+  border: 2px solid #e2e8f0;
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
+  background: #f8fafc;
 }
 
 .auth-form input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #a0aec0;
+    box-shadow: 0 0 0 3px rgba(160, 174, 192, 0.1);
 }
 
 .auth-form button {
   width: 100%;
   padding: 0.75rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #a0aec0 0%, #718096 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -84,18 +84,18 @@ body {
 
 .auth-form button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 5px 15px rgba(113, 128, 150, 0.3);
 }
 
 .auth-link {
-  color: #667eea;
+  color: #718096;
   cursor: pointer;
   text-decoration: underline;
   font-weight: 500;
 }
 
 .error-message {
-  background-color: #ff6b6b;
+  background-color: #fc8181;
   color: white;
   padding: 0.75rem;
   border-radius: 8px;
@@ -105,7 +105,7 @@ body {
 
 .dashboard {
   padding: 1rem;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
 }
@@ -114,60 +114,63 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+    padding: 1rem 1.5rem;
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 16px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .dashboard-header h1 {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 700;
+  font-size: 1.4rem;
+    font-weight: 600;
+    color: #4a5568;
+    margin: 0;
 }
 
 .logout-btn {
-  padding: 0.5rem 1.5rem;
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  padding: 0.5rem 1.2rem;
+    background: linear-gradient(135deg, #a0aec0 0%, #718096 100%);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
   transition: all 0.3s ease;
+  font-size: 0.9rem;
 }
 
 .logout-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+  box-shadow: 0 4px 10px rgba(113, 128, 150, 0.3);
 }
 
 .view-toggles {
   display: flex;
   margin-bottom: 1.5rem;
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .view-toggles button {
   flex: 1;
-  padding: 1rem;
+  padding: 0.8rem;
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  color: #666;
+  color: #718096;
   transition: all 0.3s ease;
 }
 
 .view-toggles button.active {
-  color: #667eea;
-  background: rgba(102, 126, 234, 0.1);
+  color: #4a5568;
+    background: rgba(160, 174, 192, 0.15);
 }
 
 .add-task {
@@ -179,74 +182,96 @@ body {
 .add-task input {
   flex: 1;
   padding: 0.75rem 1rem;
-  border: 2px solid #ddd;
+  border: 2px solid #e2e8f0;
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
+  background: #f8fafc;
 }
 
 .add-task input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #a0aec0;
+    box-shadow: 0 0 0 3px rgba(160, 174, 192, 0.1);
 }
 
 .add-task button {
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #06d6a0 0%, #04a57a 100%);
+  background: linear-gradient(135deg, #a0aec0 0%, #718096 100%);
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
   transition: all 0.3s ease;
+  position: relative;
+    overflow: hidden;
+  }
+  
+  .add-task button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: 0.5s;
+  }
+  
+  .add-task button:hover::before {
+    left: 100%;
 }
 
 .add-task button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(6, 214, 160, 0.4);
+  box-shadow: 0 5px 15px rgba(113, 128, 150, 0.3);
 }
 
 .todo-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.2rem;
 }
 
 .empty-state {
   text-align: center;
   padding: 3rem;
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 16px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    grid-column: 1 / -1;
 }
 
 .empty-icon {
-  font-size: 4rem;
+  font-size: 3.5rem;
   margin-bottom: 1rem;
+  opacity: 0.7;
 }
 
 .todo-item {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
-}
-
-.todo-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
 }
 
 .todo-item.dragging {
-  transform: rotate(5deg);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  transform: rotate(3deg);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  z-index: 10;
 }
 
 .task-main {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.75rem;
   margin-bottom: 1rem;
 }
@@ -255,6 +280,7 @@ body {
   cursor: grab;
   font-size: 1.2rem;
   padding: 0.5rem;
+  color: #a0aec0;
 }
 
 .task-handle:active {
@@ -265,80 +291,91 @@ body {
   width: 20px;
   height: 20px;
   cursor: pointer;
+  margin-top: 0.2rem;
 }
 
 .task-name {
   flex: 1;
   font-weight: 500;
+  font-size: 1.05rem;
+    color: #4a5568;
 }
 
 .task-name.completed {
   text-decoration: line-through;
-  color: #888;
+  color: #a0aec0;
 }
 
 .task-edit-input {
   flex: 1;
   padding: 0.5rem;
-  border: 2px solid #667eea;
+  border: 2px solid #a0aec0;
   border-radius: 6px;
   font-size: 1rem;
+  background: #f8fafc;
 }
 
 .task-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.4rem;
+    flex-wrap: wrap;
 }
 
 .priority-select {
-  padding: 0.5rem;
-  border: 1px solid #ddd;
+  padding: 0.4rem;
+    border: 1px solid #e2e8f0;
   border-radius: 6px;
-  background: white;
+  background: #f8fafc;
   cursor: pointer;
   font-weight: 500;
+  font-size: 0.85rem;
 }
 
 .timer-toggle-btn, .edit-btn, .delete-btn {
-  padding: 0.5rem;
+  padding: 0.4rem;
   border: none;
   border-radius: 6px;
   background: none;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   transition: all 0.3s ease;
+  background: #f8fafc;
 }
 
 .timer-toggle-btn:hover {
-  background: rgba(102, 126, 234, 0.1);
+  background: rgba(160, 174, 192, 0.2);
 }
 
 .edit-btn:hover {
-  background: rgba(255, 209, 102, 0.1);
+  background: rgba(255, 209, 102, 0.2);
 }
 
 .delete-btn:hover {
-  background: rgba(255, 107, 107, 0.1);
+  background: rgba(255, 107, 107, 0.2);
 }
 
 .task-meta {
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
   margin-bottom: 1rem;
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 0.85rem;
+    color: #718096;
+    padding: 0.5rem 0;
+    border-top: 1px solid #f1f5f9;
+    border-bottom: 1px solid #f1f5f9;
 }
 
 .time-display, .session-count {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.3rem;
 }
 
 .task-timers {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-top: auto;
 }
 
 .timer, .countdown-timer {
@@ -346,96 +383,109 @@ body {
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem;
-  background: rgba(102, 126, 234, 0.05);
+  background: #f8fafc;
   border-radius: 8px;
+  border: 1px solid #e2e8f0;
 }
 
 .timer-display {
   font-family: 'Fira Code', monospace;
-  font-size: 1.1rem;
+  font-size: 1rem;
   background: rgba(0, 0, 0, 0.05);
   padding: 0.5rem;
   border-radius: 6px;
-  min-width: 90px;
+  min-width: 80px;
   text-align: center;
 }
 
 .timer-controls {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .timer-btn {
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
   transition: all 0.3s ease;
+  font-size: 0.85rem;
 }
 
 .timer-btn.start {
-  background: linear-gradient(135deg, #06d6a0 0%, #04a57a 100%);
+  background: linear-gradient(135deg, #a0aec0 0%, #718096 100%);
   color: white;
 }
 
 .timer-btn.stop {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  background: linear-gradient(135deg, #fc8181 0%, #e53e3e 100%);
   color: white;
 }
 
 .timer-btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .countdown-container {
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.8);
+  background: #f8fafc;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #e2e8f0;
 }
 
 .countdown-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
   font-weight: 500;
+  font-size: 0.95rem;
+    color: #4a5568;
 }
 
 .close-countdown {
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   cursor: pointer;
+  color: #718096;
 }
 
 .duration-selector {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .duration-selector label {
+    font-size: 0.9rem;
+    color: #4a5568;
+    font-weight: 500;
 }
 
 .duration-selector input {
-  width: 60px;
-  padding: 0.25rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    width: 100%;
+    background: white;
 }
 
 .calendar-view {
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .calendar {
   background: white;
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 1rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .calendar-header {
@@ -446,22 +496,24 @@ body {
 }
 
 .calendar-header h2 {
-  color: #2d3436;
+  color: #4a5568;
+    font-size: 1.3rem;
 }
 
 .nav-btn {
-  padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 0.4rem 0.8rem;
+    background: linear-gradient(135deg, #a0aec0 0%, #718096 100%);
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 0.9rem;
 }
 
 .nav-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 10px rgba(113, 128, 150, 0.3);
 }
 
 .calendar-weekdays {
@@ -470,31 +522,33 @@ body {
   text-align: center;
   font-weight: 500;
   margin-bottom: 0.5rem;
-  color: #667eea;
+  color: #718096;
+    font-size: 0.9rem;
 }
 
 .calendar-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .calendar-day {
-  border: 1px solid #eee;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
-  min-height: 100px;
+  min-height: 90px;
   padding: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  background: #f8fafc;
 }
 
 .calendar-day:hover {
-  background: rgba(102, 126, 234, 0.05);
+  background: rgba(160, 174, 192, 0.1);
   transform: translateY(-2px);
 }
 
 .calendar-day.has-tasks {
-  background: rgba(102, 126, 234, 0.1);
+  background: rgba(160, 174, 192, 0.15);
 }
 
 .calendar-day.empty {
@@ -511,6 +565,7 @@ body {
 .day-number {
   font-weight: 500;
   margin-bottom: 0.25rem;
+  font-size: 0.9rem;
 }
 
 .day-tasks {
@@ -527,7 +582,7 @@ body {
 
 .more-tasks {
   font-size: 0.7rem;
-  color: #666;
+  color: #718096;
   text-align: center;
   margin-top: 0.25rem;
 }
@@ -547,41 +602,42 @@ body {
 
 .task-modal {
   background: white;
-  border-radius: 16px;
+  border-radius: 12px;
   width: 90%;
   max-width: 600px;
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem;
-  border-bottom: 1px solid #eee;
+  padding: 1.2rem;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .modal-header h3 {
-  color: #2d3436;
+  color: #4a5568;
+    font-size: 1.2rem;
 }
 
 .close-btn {
   background: none;
   border: none;
-  font-size: 2rem;
+  font-size: 1.8rem;
   cursor: pointer;
-  color: #666;
+  color: #718096;
 }
 
 .modal-content {
-  padding: 1.5rem;
+  padding: 1.2rem;
 }
 
 .no-tasks {
   text-align: center;
-  color: #666;
+  color: #718096;
   font-style: italic;
 }
 
@@ -593,8 +649,9 @@ body {
 
 .task-item {
   padding: 1rem;
-  background: #f8f9fa;
+  background: #f8fafc;
   border-radius: 8px;
+  border: 1px solid #e2e8f0;
 }
 
 .task-title {
@@ -607,23 +664,23 @@ body {
 .priority-badge {
   padding: 0.25rem 0.5rem;
   border-radius: 12px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
 }
 
 .priority-badge.high {
-  background: #ff6b6b;
+  background: #fc8181;
   color: white;
 }
 
 .priority-badge.medium {
-  background: #ffd166;
-  color: #2d3436;
+  background: #f6ad55;
+    color: white;
 }
 
 .priority-badge.low {
-  background: #06d6a0;
+  background: #68d391;
   color: white;
 }
 
@@ -631,27 +688,55 @@ body {
   display: flex;
   gap: 1rem;
   margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 0.85rem;
+    color: #718096;
 }
 
 .session-list {
-  border-top: 1px solid #eee;
+  border-top: 1px solid #e2e8f0;
   padding-top: 0.5rem;
 }
 
 .session-list h4 {
   margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 0.85rem;
+    color: #718096;
 }
 
 .session-item {
   display: flex;
   justify-content: space-between;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   padding: 0.25rem 0;
-  color: #888;
+  color: #a0aec0;
+  }
+  
+  /* Drag and drop styles */
+  .drag-over {
+    background: rgba(160, 174, 192, 0.2) !important;
+  }
+  
+  .drag-over-top {
+    border-top: 3px solid #718096;
+  }
+  
+  .drag-over-bottom {
+    border-bottom: 3px solid #718096;
+  }
+  
+  /* Animation for add task button */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+  
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  .add-task button.animate::before {
+    animation: shimmer 1.5s infinite;
 }
 
 @media (max-width: 768px) {
@@ -659,9 +744,16 @@ body {
     padding: 0.5rem;
   }
   
-  .task-main {
-    flex-direction: column;
-    align-items: flex-start;
+        .dashboard-header {
+          padding: 0.8rem 1rem;
+        }
+    
+        .dashboard-header h1 {
+          font-size: 1.2rem;
+        }
+    
+        .todo-list {
+          grid-template-columns: 1fr;
   }
   
   .task-actions {
@@ -675,11 +767,54 @@ body {
   }
   
   .calendar-day {
-    min-height: 80px;
+    min-height: 70px;
   }
   
   .auth-container {
     margin: 1rem;
     padding: 1.5rem;
   }
+                                .dragging {
+                                  opacity: 0.8;
+                                  transform: rotate(3deg) !important;
+                                  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important;
+                                  z-index: 100;
+                                }
+                
+                                .drag-over-top {
+                                  border-top: 3px solid #718096 !important;
+                                }
+                
+                                .drag-over-bottom {
+                                  border-bottom: 3px solid #718096 !important;
+                                }
+                
+                                /* Animation for add task button */
+                                @keyframes shimmer {
+                                  0% {
+                                    transform: translateX(-100%);
+                                  }
+                
+                                  100% {
+                                    transform: translateX(100%);
+                                  }
+                                }
+                
+                                .add-task button.animate::before {
+                                  animation: shimmer 1.5s infinite;
+                                }
+                
+                                /* Ensure proper drag and drop visual feedback */
+                                .todo-item {
+                                  transition: all 0.3s ease;
+                                }
+                
+                                .todo-item:active {
+                                  cursor: grabbing;
+                                }
+                
+                                .todo-item:hover {
+                                  transform: translateY(-2px);
+                                  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+                                }
 }

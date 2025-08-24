@@ -9,26 +9,26 @@ export const reorderTasks = (list, startIndex, endIndex) => {
 // Get task element with drag handle
 export const getItemStyle = (isDragging, priority) => {
   const priorityColors = {
-    high: '#ff6b6b',
-    medium: '#ffd166',
-    low: '#06d6a0'
+      high: "#fc8181",
+      medium: "#f6ad55",
+      low: "#68d391",
   };
   
   return {
-    userSelect: 'none',
-    padding: '16px',
-    margin: '0 0 8px 0',
-    borderRadius: '6px',
-    background: isDragging 
-      ? 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)' 
-      : `linear-gradient(135deg, ${priorityColors[priority]}20 0%, #ffffff 100%)`,
-    borderLeft: `5px solid ${priorityColors[priority]}`,
-    boxShadow: isDragging 
-      ? '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)'
-      : '0 2px 5px rgba(0,0,0,0.1)',
-    transform: isDragging ? 'rotate(5deg)' : 'none',
-    transition: 'all 0.3s ease',
-    cursor: 'grab'
+      userSelect: "none",
+      padding: "16px",
+      margin: "0 0 8px 0",
+      borderRadius: "6px",
+      background: isDragging
+          ? "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+          : `linear-gradient(135deg, ${priorityColors[priority]}20 0%, #ffffff 100%)`,
+      borderLeft: `5px solid ${priorityColors[priority]}`,
+      boxShadow: isDragging
+          ? "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)"
+          : "0 2px 5px rgba(0,0,0,0.1)",
+      transform: isDragging ? "rotate(3deg)" : "none",
+      transition: "all 0.3s ease",
+      cursor: "grab",
   };
 };
 

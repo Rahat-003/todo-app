@@ -7,6 +7,7 @@ const Dashboard = ({ user, onLogout }) => {
   const [tasks, setTasks] = useState([]);
   const [activeView, setActiveView] = useState('list');
   const [newTaskName, setNewTaskName] = useState('');
+  const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
     const userTasks = getTasks(user.id);
@@ -16,18 +17,23 @@ const Dashboard = ({ user, onLogout }) => {
   const handleAddTask = () => {
     if (!newTaskName.trim()) return;
     
-    const newTask = {
-      id: Date.now().toString(),
-      name: newTaskName,
-      completed: false,
-      priority: 'medium',
-      timeSessions: [],
-      createdAt: new Date().toISOString()
-    };
-    
-    const updatedTasks = addTask(user.id, newTask);
-    setTasks(updatedTasks);
-    setNewTaskName('');
+    setIsAdding(true);
+
+    setTimeout(() => {
+        const newTask = {
+            id: Date.now().toString(),
+            name: newTaskName,
+            completed: false,
+            priority: "medium",
+            timeSessions: [],
+            createdAt: new Date().toISOString(),
+        };
+
+        const updatedTasks = addTask(user.id, newTask);
+        setTasks(updatedTasks);
+        setNewTaskName("");
+        setIsAdding(false);
+    }, 300);
   };
 
   const handleUpdateTask = (taskId, updates) => {
@@ -46,53 +52,60 @@ const Dashboard = ({ user, onLogout }) => {
   };
 
   return (
-    <div className="dashboard">
-      <header className="dashboard-header">
-        <h1>Welcome, {user.name}!</h1>
-        <button onClick={onLogout} className="logout-btn">Logout</button>
-      </header>
-      
-      <div className="view-toggles">
-        <button 
-          className={activeView === 'list' ? 'active' : ''}
-          onClick={() => setActiveView('list')}
-        >
-          Task List
-        </button>
-        <button 
-          className={activeView === 'calendar' ? 'active' : ''}
-          onClick={() => setActiveView('calendar')}
-        >
-          Calendar
-        </button>
-      </div>
-      
-      {activeView === 'list' && (
-        <div className="todo-view">
-          <div className="add-task">
-            <input
-              type="text"
-              value={newTaskName}
-              onChange={(e) => setNewTaskName(e.target.value)}
-              placeholder="Enter new task..."
-              onKeyPress={(e) => e.key === 'Enter' && handleAddTask()}
-            />
-            <button onClick={handleAddTask}>Add Task</button>
+      <div className="dashboard">
+          <header className="dashboard-header">
+              <h1>Welcome, {user.name}!</h1>
+              <button onClick={onLogout} className="logout-btn">
+                  Logout
+              </button>
+          </header>
+
+          <div className="view-toggles">
+              <button
+                  className={activeView === "list" ? "active" : ""}
+                  onClick={() => setActiveView("list")}
+              >
+                  Task List
+              </button>
+              <button
+                  className={activeView === "calendar" ? "active" : ""}
+                  onClick={() => setActiveView("calendar")}
+              >
+                  Calendar
+              </button>
           </div>
-          
-          <TodoList
-            tasks={tasks}
-            onUpdateTask={handleUpdateTask}
-            onDeleteTask={handleDeleteTask}
-            onReorderTasks={handleReorderTasks}
-          />
-        </div>
-      )}
-      
-      {activeView === 'calendar' && (
-        <Calendar tasks={tasks} />
-      )}
-    </div>
+
+          {activeView === "list" && (
+              <div className="todo-view">
+                  <div className="add-task">
+                      <input
+                          type="text"
+                          value={newTaskName}
+                          onChange={(e) => setNewTaskName(e.target.value)}
+                          placeholder="Enter new task..."
+                          onKeyPress={(e) =>
+                              e.key === "Enter" && handleAddTask()
+                          }
+                      />
+                      <button
+                          onClick={handleAddTask}
+                          className={isAdding ? "animate" : ""}
+                      >
+                          Add Task
+                      </button>
+                  </div>
+
+                  <TodoList
+                      tasks={tasks}
+                      onUpdateTask={handleUpdateTask}
+                      onDeleteTask={handleDeleteTask}
+                      onReorderTasks={handleReorderTasks}
+                  />
+              </div>
+          )}
+
+          {activeView === "calendar" && <Calendar tasks={tasks} />}
+      </div>
   );
 };
 

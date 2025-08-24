@@ -4,33 +4,30 @@ import { reorderTasks } from '../utils/dragDrop';
 
 const TodoList = ({ tasks, onUpdateTask, onDeleteTask, onReorderTasks }) => {
   const [draggingIndex, setDraggingIndex] = useState(null);
-  const [dragOverIndex, setDragOverIndex] = useState(null);
 
   const sortedTasks = [...tasks].sort((a, b) => {
-    const priorityOrder = { high: 3, medium: 2, low: 1 };
-    return priorityOrder[b.priority] - priorityOrder[a.priority];
+      const priorityOrder = { high: 3, medium: 2, low: 1 };
+      return priorityOrder[b.priority] - priorityOrder[a.priority];
   });
 
   const handleDragStart = (index) => {
-    setDraggingIndex(index);
+      setDraggingIndex(index);
   };
 
   const handleDragOver = (index) => {
-    setDragOverIndex(index);
+      // This is handled in the TodoItem component
   };
 
   const handleDrop = (fromIndex, toIndex) => {
-    if (fromIndex !== toIndex) {
-      const reorderedTasks = reorderTasks(sortedTasks, fromIndex, toIndex);
-      onReorderTasks(reorderedTasks);
-    }
-    setDraggingIndex(null);
-    setDragOverIndex(null);
+      if (fromIndex !== toIndex) {
+          const reorderedTasks = reorderTasks(sortedTasks, fromIndex, toIndex);
+          onReorderTasks(reorderedTasks);
+      }
+      setDraggingIndex(null);
   };
 
   const handleDragEnd = () => {
     setDraggingIndex(null);
-    setDragOverIndex(null);
   };
 
   return (
