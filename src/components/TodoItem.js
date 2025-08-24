@@ -17,6 +17,7 @@ const TodoItem = ({
     const [showCountdown, setShowCountdown] = useState(false);
     const [countdownDuration, setCountdownDuration] = useState(25);
     const itemRef = useRef(null);
+    const [dropPosition, setDropPosition] = useState(null);
 
     const handleSave = () => {
         if (editName.trim()) {
@@ -103,27 +104,21 @@ const TodoItem = ({
         e.dataTransfer.dropEffect = "move";
 
         const rect = itemRef.current.getBoundingClientRect();
-        const relativeY = e.clientY - rect.top;
-        const heightThird = rect.height / 3;
+        const mouseX = e.clientX;
+        const itemCenterX = rect.left + rect.width / 2;
 
-        if (relativeY < heightThird) {
-            itemRef.current.classList.add("drag-over-top");
-            itemRef.current.classList.remove("drag-over-bottom");
-        } else if (relativeY > rect.height - heightThird) {
-            itemRef.current.classList.add("drag-over-bottom");
-            itemRef.current.classList.remove("drag-over-top");
+        // Determine if mouse is on left or right side of the task
+        if (mouseX < itemCenterX) {
+            setDropPosition("left");
         } else {
-            itemRef.current.classList.remove(
-                "drag-over-top",
-                "drag-over-bottom"
-            );
+            setDropPosition("right");
         }
 
         onDragOver(index);
     };
 
     const handleDragLeave = () => {
-        itemRef.current.classList.remove("drag-over-top", "drag-over-bottom");
+        setDropPosition(null);
     };
 
     const handleDrop = (e) => {
@@ -131,27 +126,28 @@ const TodoItem = ({
         const fromIndex = parseInt(e.dataTransfer.getData("text/plain"));
 
         const rect = itemRef.current.getBoundingClientRect();
-        const relativeY = e.clientY - rect.top;
-        const heightThird = rect.height / 3;
+        const mouseX = e.clientX;
+        const itemCenterX = rect.left + rect.width / 2;
 
+        // Determine final position based on drop side
         let toIndex = index;
-        if (relativeY < heightThird) {
-            // Drop above
+        if (mouseX < itemCenterX) {
+            // Drop to the left (before this task)
             toIndex = index;
-        } else if (relativeY > rect.height - heightThird) {
-            // Drop below
-            toIndex = index + 1;
         } else {
-            // Drop on
-            toIndex = index;
+            // Drop to the right (after this task)
+            toIndex = index + 1;
         }
 
         onDrop(fromIndex, toIndex);
-        itemRef.current.classList.remove("drag-over-top", "drag-over-bottom");
+        setDropPosition(null);
     };
 
     const handleDragEnd = () => {
-        itemRef.current.classList.remove("dragging");
+        if (itemRef.current) {
+            itemRef.current.classList.remove("dragging");
+        }
+        setDropPosition(null);
         onDragEnd();
     };
 
@@ -170,6 +166,14 @@ const TodoItem = ({
                 borderLeft: `5px solid ${getPriorityColor()}`,
             }}
         >
+            {/* Drop position indicators */}
+            {dropPosition === "left" && (
+                <div className="drop-indicator drop-left"></div>
+            )}
+            {dropPosition === "right" && (
+                <div className="drop-indicator drop-right"></div>
+            )}
+
             <div className="task-main">
                 <div className="task-handle">
                     <span>☰</span>

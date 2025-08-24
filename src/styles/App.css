@@ -774,47 +774,134 @@ body {
     margin: 1rem;
     padding: 1.5rem;
   }
-                                .dragging {
-                                  opacity: 0.8;
-                                  transform: rotate(3deg) !important;
-                                  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important;
-                                  z-index: 100;
-                                }
-                
-                                .drag-over-top {
-                                  border-top: 3px solid #718096 !important;
-                                }
-                
-                                .drag-over-bottom {
-                                  border-bottom: 3px solid #718096 !important;
-                                }
-                
-                                /* Animation for add task button */
-                                @keyframes shimmer {
-                                  0% {
-                                    transform: translateX(-100%);
-                                  }
-                
-                                  100% {
-                                    transform: translateX(100%);
-                                  }
-                                }
-                
-                                .add-task button.animate::before {
-                                  animation: shimmer 1.5s infinite;
-                                }
-                
-                                /* Ensure proper drag and drop visual feedback */
-                                .todo-item {
-                                  transition: all 0.3s ease;
-                                }
-                
-                                .todo-item:active {
-                                  cursor: grabbing;
-                                }
-                
-                                .todo-item:hover {
-                                  transform: translateY(-2px);
-                                  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-                                }
+/* Enhanced Drag and Drop Styles */
+.dragging {
+  opacity: 0.6;
+    transform: rotate(3deg) scale(1.02) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+    z-index: 100;
+  }
+/* Drop position indicators */
+.drop-indicator {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  z-index: 5;
+  border-radius: 2px;
+}
+
+
+/* Enhanced Drag and Drop Styles */
+.dragging {
+  opacity: 0.6;
+  transform: rotate(3deg) scale(1.02) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+  z-index: 100;
+}
+
+/* Drop position indicators */
+.drop-indicator {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  z-index: 5;
+  border-radius: 2px;
+}
+
+.drop-left {
+  left: -2px;
+}
+
+.drop-right {
+  right: -2px;
+}
+
+/* Visual feedback for drop zones */
+.todo-item.drop-zone {
+  background: rgba(102, 126, 234, 0.1) !important;
+  border: 2px dashed #667eea !important;
+}
+
+/* Hover effect for tasks */
+.todo-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* Grid layout for tasks with smooth transitions */
+.todo-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.2rem;
+  transition: grid-template-columns 0.3s ease;
+}
+
+/* Handle styling for better visibility */
+.task-handle {
+  cursor: grab;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  color: #a0aec0;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.task-handle:hover {
+  background: rgba(160, 174, 192, 0.2);
+  color: #4a5568;
+}
+
+.task-handle:active {
+  cursor: grabbing;
+  background: rgba(160, 174, 192, 0.3);
+}
+
+/* Animation for add task button */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.add-task button.animate::before {
+  animation: shimmer 1.5s infinite;
+}
+
+/* Smooth transitions for all interactive elements */
+.todo-item,
+.task-handle,
+.priority-select,
+.timer-toggle-btn,
+.edit-btn,
+.delete-btn {
+  transition: all 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .todo-list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .drop-indicator {
+    width: 3px;
+  }
+  
+  .drop-left {
+    left: -1px;
+  }
+  
+  .drop-right {
+    right: -1px;
+  }
+}
+
+
+
+
 }

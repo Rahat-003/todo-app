@@ -1,0 +1,10 @@
+{
+    "workbench.tree.indentGuidesDecorations": "none",
+"workbench.tree.renderIndentGuides": "always",
+"[Explorer]": {
+    "editor.fontFamily": "monospace"
+
+},
+"editor.fontFamily": "Jetbrains Mono",
+"editor.fontSize": 15,
+}

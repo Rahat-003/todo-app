@@ -15,25 +15,25 @@ const Dashboard = ({ user, onLogout }) => {
   }, [user.id]);
 
   const handleAddTask = () => {
-    if (!newTaskName.trim()) return;
-    
-    setIsAdding(true);
+      if (!newTaskName.trim()) return;
 
-    setTimeout(() => {
-        const newTask = {
-            id: Date.now().toString(),
-            name: newTaskName,
-            completed: false,
-            priority: "medium",
-            timeSessions: [],
-            createdAt: new Date().toISOString(),
-        };
+      setIsAdding(true);
 
-        const updatedTasks = addTask(user.id, newTask);
-        setTasks(updatedTasks);
-        setNewTaskName("");
-        setIsAdding(false);
-    }, 300);
+      setTimeout(() => {
+          const newTask = {
+              id: Date.now().toString(),
+              name: newTaskName,
+              completed: false,
+              priority: "medium",
+              timeSessions: [],
+              createdAt: new Date().toISOString(),
+          };
+
+          const updatedTasks = addTask(user.id, newTask);
+          setTasks(updatedTasks);
+          setNewTaskName("");
+          setIsAdding(false);
+      }, 300);
   };
 
   const handleUpdateTask = (taskId, updates) => {
@@ -47,8 +47,9 @@ const Dashboard = ({ user, onLogout }) => {
   };
 
   const handleReorderTasks = (reorderedTasks) => {
-    setTasks(reorderedTasks);
-    saveTasks(user.id, reorderedTasks);
+      // Update both state and storage
+      setTasks(reorderedTasks);
+      saveTasks(user.id, reorderedTasks);
   };
 
   return (

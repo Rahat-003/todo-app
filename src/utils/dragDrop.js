@@ -1,9 +1,15 @@
 // HTML5 Drag and Drop utilities
 export const reorderTasks = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-  return result;
+    // Make sure we're working with a copy of the array
+    const result = Array.from(list);
+
+    // Remove the item from its original position
+    const [removed] = result.splice(startIndex, 1);
+
+    // Insert it at the new position
+    result.splice(endIndex, 0, removed);
+
+    return result;
 };
 
 // Get task element with drag handle
