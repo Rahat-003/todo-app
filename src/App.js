@@ -3,6 +3,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { getCurrentUser, logout } from "./utils/auth";
+import { TimerProvider } from "./context/TimerContext";
 import "./styles/App.css";
 
 function App() {
@@ -33,17 +34,22 @@ function App() {
     };
 
     return (
-        <div className="App">
-            {currentView === "login" && (
-                <Login onLogin={handleLogin} switchView={switchView} />
-            )}
-            {currentView === "register" && (
-                <Register onRegister={handleLogin} switchView={switchView} />
-            )}
-            {currentView === "dashboard" && currentUser && (
-                <Dashboard user={currentUser} onLogout={handleLogout} />
-            )}
-        </div>
+        <TimerProvider>
+            <div className="App">
+                {currentView === "login" && (
+                    <Login onLogin={handleLogin} switchView={switchView} />
+                )}
+                {currentView === "register" && (
+                    <Register
+                        onRegister={handleLogin}
+                        switchView={switchView}
+                    />
+                )}
+                {currentView === "dashboard" && currentUser && (
+                    <Dashboard user={currentUser} onLogout={handleLogout} />
+                )}
+            </div>
+        </TimerProvider>
     );
 }
 
