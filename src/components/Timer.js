@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Timer = ({ onSessionComplete, isActive, globalStartTracker, setGlobalStartTracker }) => {
+const Timer = ({ onSessionComplete, isActive, globalStartTracker, setGlobalStartTracker, setIsTimerOrCountDownRunning }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [startTime, setStartTime] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
@@ -22,7 +22,7 @@ const Timer = ({ onSessionComplete, isActive, globalStartTracker, setGlobalStart
   const handleStart = () => {
     if (!isActive || globalStartTracker) return;
     setGlobalStartTracker(() => true);
-    
+    setIsTimerOrCountDownRunning(() => true);
     setIsRunning(true);
     setStartTime(Date.now() - elapsedTime);
   };
@@ -30,6 +30,7 @@ const Timer = ({ onSessionComplete, isActive, globalStartTracker, setGlobalStart
   const handleStop = () => {
     if (!isRunning) return;
     setGlobalStartTracker(() => false);
+    setIsTimerOrCountDownRunning(() => false);
     setIsRunning(false);
     
     if (onSessionComplete) {

@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-const CountdownTimer = ({ duration, onComplete, taskId, globalStartTracker, setGlobalStartTracker }) => {
-  const [timeLeft, setTimeLeft] = useState(duration * 60 * 1000); // Convert minutes to ms
-  const [isRunning, setIsRunning] = useState(false);
+const CountdownTimer = ({ duration, onComplete, taskId, globalStartTracker, setGlobalStartTracker, setIsTimerOrCountDownRunning }) => {
 
+  let [timeLeft, setTimeLeft] = useState(duration * 60 * 1000); // Convert minutes to ms
+  console.log("duration =", duration, "timeLeft =", timeLeft/(60*1000));
+  const [isRunning, setIsRunning] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+
+
+  
   useEffect(() => {
     let interval = null;
     
@@ -13,7 +18,7 @@ const CountdownTimer = ({ duration, onComplete, taskId, globalStartTracker, setG
       }, 1000);
     } else if (timeLeft <= 0) {
       clearInterval(interval);
-
+      setIsActive(false);
       if (isRunning) {
         setIsRunning(false);
         onComplete(taskId, duration * 60 * 1000); // Notify parent of completion
@@ -25,12 +30,15 @@ const CountdownTimer = ({ duration, onComplete, taskId, globalStartTracker, setG
 
   const handleStart = () => {
     if (globalStartTracker) return;
+    setIsActive(() => true);
     setGlobalStartTracker(() => true);
+    setIsTimerOrCountDownRunning(() => true);
     setIsRunning(true);
   };
 
   const handleStop = () => {
     setGlobalStartTracker(() => false);
+    setIsTimerOrCountDownRunning(() => false);
     setIsRunning(false);
   };
 
@@ -48,7 +56,7 @@ const CountdownTimer = ({ duration, onComplete, taskId, globalStartTracker, setG
 
   return (
     <div className="countdown-timer">
-      <div className="timer-display">{formatTime(timeLeft)}</div>
+      <div className="timer-display">{isActive ? formatTime(timeLeft) : formatTime(duration * 60 * 1000)}</div>
       <div className="timer-controls">
         {!isRunning ? (
           <button onClick={handleStart} className="timer-btn start" disabled={globalStartTracker}>

@@ -19,7 +19,7 @@ const TodoItem = ({
     const [editName, setEditName] = useState(task.name);
     const [showCountdown, setShowCountdown] = useState(false);
     const [countdownDuration, setCountdownDuration] = useState(25);
-    // const [globalStartTracker, setGlobalStartTracker] = useState(false);
+    const [isTimerOrCountDownRunning, setIsTimerOrCountDownRunning] = useState(false);
     
     const itemRef = useRef(null);
 
@@ -186,6 +186,7 @@ const TodoItem = ({
                     checked={task.completed}
                     onChange={handleToggleComplete}
                     className="task-checkbox"
+                    disabled={isTimerOrCountDownRunning}
                 />
 
                 {isEditing ? (
@@ -199,19 +200,19 @@ const TodoItem = ({
                           className="task-edit-input"
                       />
                   ) : (
-                      <TaskName
-                          name={task.name}
-                          completed={task.completed}
-                          onDoubleClick={() => setIsEditing(true)}
-                      />
-                    // <span
-                    //     className={`task-name ${
-                    //         task.completed ? "completed" : ""
-                    //     }`}
-                    //     onDoubleClick={() => setIsEditing(true)}
-                    // >
-                    //     <span>{task.name}</span>
-                    // </span>
+                    //   <TaskName
+                    //       name={task.name}
+                    //       completed={task.completed}
+                    //       onDoubleClick={() => setIsEditing(true)}
+                    //   />
+                    <span
+                        className={`task-name ${
+                            task.completed ? "completed" : ""
+                        }`}
+                        onDoubleClick={() => setIsEditing(true)}
+                    >
+                        <span>{task.name}</span>
+                    </span>
                 )}
             </div>
 
@@ -270,6 +271,7 @@ const TodoItem = ({
                     setGlobalStartTracker={setGlobalStartTracker}
                     onSessionComplete={handleTimeSession}
                     isActive={!task.completed}
+                    setIsTimerOrCountDownRunning={setIsTimerOrCountDownRunning}
                 />
 
                 {showCountdown && (
@@ -283,20 +285,6 @@ const TodoItem = ({
                                 ×
                             </button>
                         </div>
-                        {/* <div className="duration-selector">
-                            <label>Duration (minutes):</label>
-                            <input
-                                type="number"
-                                min="0"
-                                max="120"
-                                value={countdownDuration}
-                                onChange={(e) =>f
-                                    setCountdownDuration(() =>
-                                        parseInt(e.target.value)
-                                    )
-                                }
-                            />
-                        </div> */}
 
                         <div className="duration-selector">
                             <label>Duration (minutes):</label>
@@ -310,6 +298,7 @@ const TodoItem = ({
                                         isNaN(value) ? "" : value
                                     );
                                 }}
+                                // disabled={true}
                             />
                         </div>
 
@@ -321,6 +310,7 @@ const TodoItem = ({
                             }
                             onComplete={handleCountdownComplete}
                             taskId={task.id}
+                            setIsTimerOrCountDownRunning={setIsTimerOrCountDownRunning}
                         />
                     </div>
                 )}
