@@ -8,7 +8,7 @@ const Dashboard = ({ user, onLogout }) => {
   const [activeView, setActiveView] = useState('list');
   const [newTaskName, setNewTaskName] = useState('');
   const [isAdding, setIsAdding] = useState(false);
-
+    
   useEffect(() => {
     const userTasks = getTasks(user.id);
     setTasks(userTasks);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const CountdownTimer = ({ duration, onComplete, taskId }) => {
+const CountdownTimer = ({ duration, onComplete, taskId, globalStartTracker, setGlobalStartTracker }) => {
   const [timeLeft, setTimeLeft] = useState(duration * 60 * 1000); // Convert minutes to ms
   const [isRunning, setIsRunning] = useState(false);
 
@@ -13,6 +13,7 @@ const CountdownTimer = ({ duration, onComplete, taskId }) => {
       }, 1000);
     } else if (timeLeft <= 0) {
       clearInterval(interval);
+
       if (isRunning) {
         setIsRunning(false);
         onComplete(taskId, duration * 60 * 1000); // Notify parent of completion
@@ -23,10 +24,13 @@ const CountdownTimer = ({ duration, onComplete, taskId }) => {
   }, [isRunning, timeLeft, onComplete, taskId, duration]);
 
   const handleStart = () => {
+    if (globalStartTracker) return;
+    setGlobalStartTracker(() => true);
     setIsRunning(true);
   };
 
   const handleStop = () => {
+    setGlobalStartTracker(() => false);
     setIsRunning(false);
   };
 
@@ -47,7 +51,7 @@ const CountdownTimer = ({ duration, onComplete, taskId }) => {
       <div className="timer-display">{formatTime(timeLeft)}</div>
       <div className="timer-controls">
         {!isRunning ? (
-          <button onClick={handleStart} className="timer-btn start">
+          <button onClick={handleStart} className="timer-btn start" disabled={globalStartTracker}>
             Start
           </button>
         ) : (

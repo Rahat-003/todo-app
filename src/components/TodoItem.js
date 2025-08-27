@@ -11,11 +11,15 @@ const TodoItem = ({
     onDragOver,
     onDrop,
     onDragEnd,
+    globalStartTracker,
+    setGlobalStartTracker
 }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editName, setEditName] = useState(task.name);
     const [showCountdown, setShowCountdown] = useState(false);
     const [countdownDuration, setCountdownDuration] = useState(25);
+    // const [globalStartTracker, setGlobalStartTracker] = useState(false);
+    
     const itemRef = useRef(null);
 
     const handleSave = () => {
@@ -48,6 +52,7 @@ const TodoItem = ({
         const updatedSessions = [...task.timeSessions, session];
         onUpdateTask(task.id, { timeSessions: updatedSessions });
         setShowCountdown(false);
+        setGlobalStartTracker(false);
     };
 
     const getPriorityColor = () => {
@@ -222,12 +227,12 @@ const TodoItem = ({
                         ⏱️
                     </button>
 
-                    <button
+                    {/* <button
                         onClick={() => setIsEditing(true)}
                         className="edit-btn"
                     >
                         ✏️
-                    </button>
+                    </button> */}
 
                     <button
                         onClick={() => onDeleteTask(task.id)}
@@ -251,6 +256,8 @@ const TodoItem = ({
 
             <div className="task-timers">
                 <Timer
+                    globalStartTracker={globalStartTracker}
+                    setGlobalStartTracker={setGlobalStartTracker}
                     onSessionComplete={handleTimeSession}
                     isActive={!task.completed}
                 />
@@ -270,18 +277,20 @@ const TodoItem = ({
                             <label>Duration (minutes):</label>
                             <input
                                 type="number"
-                                min="1"
+                                min="0"
                                 max="120"
                                 value={countdownDuration}
                                 onChange={(e) =>
-                                    setCountdownDuration(
-                                        parseInt(e.target.value) || 1
+                                    setCountdownDuration(() =>
+                                        parseInt(e.target.value)
                                     )
                                 }
                             />
                         </div>
                         <CountdownTimer
-                            duration={countdownDuration}
+                            globalStartTracker={globalStartTracker}
+                            setGlobalStartTracker={setGlobalStartTracker}
+                            duration={countdownDuration > 0 ? countdownDuration : 25}
                             onComplete={handleCountdownComplete}
                             taskId={task.id}
                         />
