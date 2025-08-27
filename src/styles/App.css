@@ -296,10 +296,48 @@ body {
 
 .task-name {
   flex: 1;
+  min-width: 0; /* allow shrinking inside flex */
   font-weight: 500;
   font-size: 1.05rem;
-    color: #4a5568;
+  color: #4a5568;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  position: relative;
 }
+
+.task-name .scrolling {
+  display: inline-block;
+  padding-right: 2rem;
+  animation: scroll-text linear infinite;
+  animation-duration: var(--scroll-duration, 10s);
+  will-change: transform;
+}
+
+.task-name.completed {
+  text-decoration: line-through;
+  color: #a0aec0;
+}
+
+.task-name::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 40px;
+  background: linear-gradient(to right, transparent, transparent);
+}
+
+@keyframes scroll-text {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
 
 .task-name.completed {
   text-decoration: line-through;

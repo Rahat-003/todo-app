@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import Timer from "./Timer";
 import CountdownTimer from "./CountdownTimer";
+import TaskName from "./TaskName";
 
 const TodoItem = ({
     task,
@@ -176,9 +177,9 @@ const TodoItem = ({
             }}
         >
             <div className="task-main">
-                <div className="task-handle">
+                {/* <div className="task-handle">
                     <span>☰</span>
-                </div>
+                </div> */}
 
                 <input
                     type="checkbox"
@@ -194,20 +195,27 @@ const TodoItem = ({
                         onChange={(e) => setEditName(e.target.value)}
                         onBlur={handleSave}
                         onKeyPress={(e) => e.key === "Enter" && handleSave()}
-                        autoFocus
-                        className="task-edit-input"
-                    />
-                ) : (
-                    <span
-                        className={`task-name ${
-                            task.completed ? "completed" : ""
-                        }`}
-                        onDoubleClick={() => setIsEditing(true)}
-                    >
-                        {task.name}
-                    </span>
+                          autoFocus
+                          className="task-edit-input"
+                      />
+                  ) : (
+                      <TaskName
+                          name={task.name}
+                          completed={task.completed}
+                          onDoubleClick={() => setIsEditing(true)}
+                      />
+                    // <span
+                    //     className={`task-name ${
+                    //         task.completed ? "completed" : ""
+                    //     }`}
+                    //     onDoubleClick={() => setIsEditing(true)}
+                    // >
+                    //     <span>{task.name}</span>
+                    // </span>
                 )}
+            </div>
 
+            <div>
                 <div className="task-actions">
                     <select
                         value={task.priority}
@@ -233,9 +241,11 @@ const TodoItem = ({
                     >
                         ✏️
                     </button> */}
-
                     <button
-                        onClick={() => onDeleteTask(task.id)}
+                        onClick={() => {
+                            setGlobalStartTracker(false);
+                            onDeleteTask(task.id);
+                        }}
                         className="delete-btn"
                     >
                         🗑️
@@ -273,24 +283,42 @@ const TodoItem = ({
                                 ×
                             </button>
                         </div>
-                        <div className="duration-selector">
+                        {/* <div className="duration-selector">
                             <label>Duration (minutes):</label>
                             <input
                                 type="number"
                                 min="0"
                                 max="120"
                                 value={countdownDuration}
-                                onChange={(e) =>
+                                onChange={(e) =>f
                                     setCountdownDuration(() =>
                                         parseInt(e.target.value)
                                     )
                                 }
                             />
+                        </div> */}
+
+                        <div className="duration-selector">
+                            <label>Duration (minutes):</label>
+                            <input
+                                type="number"
+                                max="120"
+                                value={countdownDuration}
+                                onChange={(e) => {
+                                    const value = parseInt(e.target.value);
+                                    setCountdownDuration(() =>
+                                        isNaN(value) ? "" : value
+                                    );
+                                }}
+                            />
                         </div>
+
                         <CountdownTimer
                             globalStartTracker={globalStartTracker}
                             setGlobalStartTracker={setGlobalStartTracker}
-                            duration={countdownDuration > 0 ? countdownDuration : 25}
+                            duration={
+                                countdownDuration > 0 ? countdownDuration : 25
+                            }
                             onComplete={handleCountdownComplete}
                             taskId={task.id}
                         />
