@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import Timer from "./Timer";
 import CountdownTimer from "./CountdownTimer";
-import TaskName from "./TaskName";
+import DurationInput from "./DurationInput";
 
 const TodoItem = ({
     task,
@@ -13,14 +13,14 @@ const TodoItem = ({
     onDrop,
     onDragEnd,
     globalStartTracker,
-    setGlobalStartTracker
+    setGlobalStartTracker,
 }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editName, setEditName] = useState(task.name);
     const [showCountdown, setShowCountdown] = useState(false);
     const [countdownDuration, setCountdownDuration] = useState(25);
     const [isTimerOrCountDownRunning, setIsTimerOrCountDownRunning] = useState(false);
-    
+
     const itemRef = useRef(null);
 
     const handleSave = () => {
@@ -58,23 +58,16 @@ const TodoItem = ({
 
     const getPriorityColor = () => {
         switch (task.priority) {
-            case "high":
-                return "#fc8181";
-            case "medium":
-                return "#f6ad55";
-            case "low":
-                return "#68d391";
-            default:
-                return "#e2e8f0";
+            case "high": return "#fc8181";
+            case "medium": return "#f6ad55";
+            case "low": return "#68d391";
+            default: return "#e2e8f0";
         }
     };
 
     const calculateTotalTime = () => {
         return task.timeSessions.reduce((total, session) => {
-            return (
-                total +
-                (session.duration || session.endTime - session.startTime)
-            );
+            return total + (session.duration || session.endTime - session.startTime);
         }, 0);
     };
 
@@ -84,30 +77,21 @@ const TodoItem = ({
         const minutes = Math.floor((seconds % 3600) / 60);
         const secs = seconds % 60;
 
-        if (hours > 0) {
-            return `${hours}h ${minutes}m`;
-        } else if (minutes > 0) {
-            return `${minutes}m ${secs}s`;
-        } else {
-            return `${secs}s`;
-        }
+        if (hours > 0) return `${hours}h ${minutes}m`;
+        else if (minutes > 0) return `${minutes}m ${secs}s`;
+        else return `${secs}s`;
     };
 
     const handleDragStart = (e) => {
         e.dataTransfer.setData("text/plain", index.toString());
         e.dataTransfer.effectAllowed = "move";
         onDragStart(index);
-
-        // Add a small delay to make the drag image appear correctly
-        setTimeout(() => {
-            e.target.classList.add("dragging");
-        }, 0);
+        setTimeout(() => e.target.classList.add("dragging"), 0);
     };
 
     const handleDragOver = (e) => {
         e.preventDefault();
         e.dataTransfer.dropEffect = "move";
-
         const rect = itemRef.current.getBoundingClientRect();
         const relativeY = e.clientY - rect.top;
         const heightThird = rect.height / 3;
@@ -119,12 +103,8 @@ const TodoItem = ({
             itemRef.current.classList.add("drag-over-bottom");
             itemRef.current.classList.remove("drag-over-top");
         } else {
-            itemRef.current.classList.remove(
-                "drag-over-top",
-                "drag-over-bottom"
-            );
+            itemRef.current.classList.remove("drag-over-top", "drag-over-bottom");
         }
-
         onDragOver(index);
     };
 
@@ -135,22 +115,14 @@ const TodoItem = ({
     const handleDrop = (e) => {
         e.preventDefault();
         const fromIndex = parseInt(e.dataTransfer.getData("text/plain"));
-
         const rect = itemRef.current.getBoundingClientRect();
         const relativeY = e.clientY - rect.top;
         const heightThird = rect.height / 3;
 
         let toIndex = index;
-        if (relativeY < heightThird) {
-            // Drop above
-            toIndex = index;
-        } else if (relativeY > rect.height - heightThird) {
-            // Drop below
-            toIndex = index + 1;
-        } else {
-            // Drop on
-            toIndex = index;
-        }
+        if (relativeY < heightThird) toIndex = index;
+        else if (relativeY > rect.height - heightThird) toIndex = index + 1;
+        else toIndex = index;
 
         onDrop(fromIndex, toIndex);
         itemRef.current.classList.remove("drag-over-top", "drag-over-bottom");
@@ -177,10 +149,6 @@ const TodoItem = ({
             }}
         >
             <div className="task-main">
-                {/* <div className="task-handle">
-                    <span>☰</span>
-                </div> */}
-
                 <input
                     type="checkbox"
                     checked={task.completed}
@@ -196,21 +164,11 @@ const TodoItem = ({
                         onChange={(e) => setEditName(e.target.value)}
                         onBlur={handleSave}
                         onKeyPress={(e) => e.key === "Enter" && handleSave()}
-                          autoFocus
-                          className="task-edit-input"
-                      />
-                  ) : (
-                    //   <TaskName
-                    //       name={task.name}
-                    //       completed={task.completed}
-                    //       onDoubleClick={() => setIsEditing(true)}
-                    //   />
-                    <span
-                        className={`task-name ${
-                            task.completed ? "completed" : ""
-                        }`}
-                        onDoubleClick={() => setIsEditing(true)}
-                    >
+                        autoFocus
+                        className="task-edit-input"
+                    />
+                ) : (
+                    <span className={`task-name ${task.completed ? "completed" : ""}`} onDoubleClick={() => setIsEditing(true)}>
                         <span>{task.name}</span>
                     </span>
                 )}
@@ -229,26 +187,11 @@ const TodoItem = ({
                         <option value="high">High</option>
                     </select>
 
-                    <button
-                        onClick={() => setShowCountdown(!showCountdown)}
-                        className="timer-toggle-btn"
-                    >
+                    <button onClick={() => setShowCountdown(!showCountdown)} className="timer-toggle-btn">
                         ⏱️
                     </button>
 
-                    {/* <button
-                        onClick={() => setIsEditing(true)}
-                        className="edit-btn"
-                    >
-                        ✏️
-                    </button> */}
-                    <button
-                        onClick={() => {
-                            setGlobalStartTracker(false);
-                            onDeleteTask(task.id);
-                        }}
-                        className="delete-btn"
-                    >
+                    <button onClick={() => { setGlobalStartTracker(false); onDeleteTask(task.id); }} className="delete-btn">
                         🗑️
                     </button>
                 </div>
@@ -278,36 +221,20 @@ const TodoItem = ({
                     <div className="countdown-container">
                         <div className="countdown-header">
                             <span>Set Countdown Timer</span>
-                            <button
-                                onClick={() => setShowCountdown(false)}
-                                className="close-countdown"
-                            >
+                            <button onClick={() => setShowCountdown(false)} className="close-countdown">
                                 ×
                             </button>
                         </div>
 
                         <div className="duration-selector">
                             <label>Duration (minutes):</label>
-                            <input
-                                type="number"
-                                max="120"
-                                value={countdownDuration}
-                                onChange={(e) => {
-                                    const value = parseInt(e.target.value);
-                                    setCountdownDuration(() =>
-                                        isNaN(value) ? "" : value
-                                    );
-                                }}
-                                // disabled={true}
-                            />
+                            <DurationInput value={countdownDuration} onChange={setCountdownDuration} />
                         </div>
 
                         <CountdownTimer
                             globalStartTracker={globalStartTracker}
                             setGlobalStartTracker={setGlobalStartTracker}
-                            duration={
-                                countdownDuration > 0 ? countdownDuration : 25
-                            }
+                            duration={countdownDuration}
                             onComplete={handleCountdownComplete}
                             taskId={task.id}
                             setIsTimerOrCountDownRunning={setIsTimerOrCountDownRunning}
@@ -319,4 +246,4 @@ const TodoItem = ({
     );
 };
 
-export default TodoItem;
+export default React.memo(TodoItem);
