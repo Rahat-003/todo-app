@@ -1,24 +1,38 @@
 import React, { useState } from 'react';
 import AuthForm from '../components/AuthForm';
-import { register } from '../utils/auth';
+
+
+const apiEndpoint = 'http://localhost:8080/api/auth/register';
 
 const Register = ({ onRegister, switchView }) => {
   const [error, setError] = useState('');
 
-  const handleRegister = async (name, email, password) => {
+  const handleRegister = async (userData) => {
     try {
-      const user = register(name, email, password);
-      onRegister(user);
+      const response = await fetch(apiEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+      
+      if (response.ok) {
+        const user = await response.json();
+        onRegister(user);
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message || 'Registration failed');
+      }
     } catch (err) {
-      setError(err.message);
+      setError('Network error. Please try again.');
     }
   };
 
   return (
     <div className="auth-container">
       <h1>Create an Account</h1>
-      {error && <div className="error-message">{error}</div>}
-      <AuthForm onSubmit={handleRegister} isRegister={true} buttonText="Register" />
+      <AuthForm onSubmit={handleRegister} isRegister={true} buttonText="Register" error={error} />
       <p>
         Already have an account?{' '}
         <span className="auth-link" onClick={() => switchView('login')}>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AuthForm = ({ onSubmit, isRegister = false, buttonText }) => {
+const AuthForm = ({ onSubmit, isRegister = false, buttonText, error }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -8,14 +8,15 @@ const AuthForm = ({ onSubmit, isRegister = false, buttonText }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isRegister) {
-      onSubmit(name, email, password);
+      onSubmit({ name, email, password });
     } else {
-      onSubmit(email, password);
+      onSubmit({ email, password });
     }
   };
 
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
+      {error && <div className="error-message">{error}</div>}
       {isRegister && (
         <div className="form-group">
           <label>Name:</label>

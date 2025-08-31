@@ -1,28 +1,38 @@
 import React, { useState } from 'react';
 import AuthForm from '../components/AuthForm';
-import { login } from '../utils/auth';
+
+
+const apiEndpoint = 'http://localhost:8080/api/auth/login';
 
 const Login = ({ onLogin, switchView }) => {
   const [error, setError] = useState('');
 
-  const handleLogin = async (email, password) => {
+  const handleLogin = async (credentials) => {
     try {
-      const user = login(email, password);
-      if (user) {
+      const response = await fetch(apiEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials),
+      });
+      
+      if (response.ok) {
+        const user = await response.json();
         onLogin(user);
       } else {
-        setError('Invalid email or password');
+        const errorData = await response.json();
+        setError(errorData.message || 'Invalid email or password');
       }
     } catch (err) {
-      setError(err.message);
+      setError('Network error. Please try again.');
     }
   };
 
   return (
     <div className="auth-container">
       <h1>Login to Your Todo App</h1>
-      {error && <div className="error-message">{error}</div>}
-      <AuthForm onSubmit={handleLogin} buttonText="Login" />
+      <AuthForm onSubmit={handleLogin} buttonText="Login" error={error} />
       <p>
         Don't have an account?{' '}
         <span className="auth-link" onClick={() => switchView('register')}>
