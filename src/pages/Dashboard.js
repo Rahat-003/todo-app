@@ -1,18 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import TodoList from '../components/TodoList';
 import Calendar from '../components/Calendar';
 import { getTasks, addTask, updateTask, deleteTask, saveTasks } from '../utils/storage';
+import { jwtDecode } from 'jwt-decode';
 
 const Dashboard = ({ user, onLogout }) => {
   const [tasks, setTasks] = useState([]);
   const [activeView, setActiveView] = useState('list');
   const [newTaskName, setNewTaskName] = useState('');
   const [isAdding, setIsAdding] = useState(false);
-    
+  const [userName, setUserName] = useState('');
+
   useEffect(() => {
+    if (user && user.accessToken) {
+      try {
+        const decodedToken = jwtDecode(user.accessToken);
+        setUserName(decodedToken.sub); // Assuming 'sub' claim contains the username
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        setUserName('Guest'); // Fallback
+      }
+    } else {
+      setUserName('Guest'); // Fallback if no user or accessToken
+    }
     const userTasks = getTasks(user.id);
     setTasks(userTasks);
-  }, [user.id]);
+  }, [user]);
 
   const handleAddTask = () => {
     if (!newTaskName.trim()) return;
@@ -54,7 +67,7 @@ const Dashboard = ({ user, onLogout }) => {
   return (
       <div className="dashboard">
           <header className="dashboard-header">
-              <h1>Welcome, {user.name}!</h1>
+              <h1>Welcome, {userName}!</h1>
               <button onClick={onLogout} className="logout-btn">
                   Logout
               </button>

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 
 const AuthForm = ({ onSubmit, isRegister = false, buttonText, error }) => {
-  const [name, setName] = useState('');
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isRegister) {
-      onSubmit({ name, email, password });
+      onSubmit({ userName, email, password });
     } else {
       onSubmit({ email, password });
     }
@@ -22,8 +22,8 @@ const AuthForm = ({ onSubmit, isRegister = false, buttonText, error }) => {
           <label>Name:</label>
           <input
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
             required
           />
         </div>
