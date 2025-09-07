@@ -2,32 +2,32 @@ import React, { useState } from 'react';
 import AuthForm from '../components/AuthForm';
 
 
-const apiEndpoint = 'http://localhost:15009/api/auth/login';
+const apiEndpoint = 'http://localhost:15009/auth/login';
 
 const Login = ({ onLogin, switchView }) => {
   const [error, setError] = useState('');
 
-  const handleLogin = async (credentials) => {
-    try {
-      const response = await fetch(apiEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-      });
-      
-      if (response.ok) {
-        const user = await response.json();
-        onLogin(user);
-      } else {
-        const errorData = await response.json();
-        setError(errorData.message || 'Invalid email or password');
-      }
-    } catch (err) {
-      setError('Network error. Please try again.');
+const handleLogin = async (credentials) => {
+  try {
+    const response = await fetch(apiEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    });
+    
+    if (response.ok) {
+      const user = await response.json();
+      onLogin(user);
+    } else {
+      const errorData = await response.json();
+      setError(errorData.message || 'Invalid email or password');
     }
-  };
+  } catch (err) {
+    setError('Network error. Please try again.');
+  }
+};
 
   return (
     <div className="auth-container">

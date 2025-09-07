@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import AuthForm from '../components/AuthForm';
 
-// const apiEndpointOffice = 'http://172.168.21.68:15009/api/auth/register';
-const apiEndpointHome = 'http://192.168.0.101:15009/api/auth/register';
+// const apiEndpointOffice = 'http://172.168.21.68:15009/auth/register';
+const apiEndpointHome = 'http://localhost:15009/auth/register';
 
 const Register = ({ onRegister, switchView }) => {
   const [error, setError] = useState('');
