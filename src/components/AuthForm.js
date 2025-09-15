@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 
 const AuthForm = ({ onSubmit, isRegister = false, buttonText, error }) => {
-  const [userName, setUserName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isRegister) {
-      onSubmit({ userName, email, password });
+      onSubmit({ firstName, lastName, email, password });
     } else {
       onSubmit({ email, password });
     }
@@ -19,17 +20,28 @@ const AuthForm = ({ onSubmit, isRegister = false, buttonText, error }) => {
       {error && <div className="error-message">{error}</div>}
       {isRegister && (
         <div className="form-group">
-          <label>Name:</label>
+          <label>First Name</label>
           <input
             type="text"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+        </div> 
+      )}
+      {isRegister && (
+        <div className="form-group">
+          <label>Last Name</label>
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
             required
           />
         </div>
       )}
       <div className="form-group">
-        <label>Email:</label>
+        <label>Email</label>
         <input
           type="email"
           value={email}
@@ -38,7 +50,7 @@ const AuthForm = ({ onSubmit, isRegister = false, buttonText, error }) => {
         />
       </div>
       <div className="form-group">
-        <label>Password:</label>
+        <label>Password</label>
         <input
           type="password"
           value={password}

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import AuthForm from '../components/AuthForm';
 
 
-const apiEndpoint = 'http://localhost:15009/auth/login';
+// const apiEndpoint = 'http://localhost:15009/api/auth/login';
+const apiEndpoint = 'http://localhost:15000/api/v1/auth/login';
 
 const Login = ({ onLogin, switchView }) => {
   const [error, setError] = useState('');
