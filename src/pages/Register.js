@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import AuthForm from '../components/AuthForm';
 
-// const apiEndpointOffice = 'http://172.168.21.68:15009/auth/register';
-// const apiEndpointHome = 'http://localhost:15009/auth/register';
-const apiEndpointHome = 'http://localhost:15000/api/v1/auth/register';
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
+const apiEndpointRegister = `http://${baseUrl}:15000/api/v1/auth/register`;
 
 const Register = ({ onRegister, switchView }) => {
   const [error, setError] = useState('');
 
   const handleRegister = async (userData) => {
     try {
-      const response = await fetch(apiEndpointHome, {
+      const response = await fetch(apiEndpointRegister, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

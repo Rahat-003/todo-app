@@ -3,6 +3,11 @@ import TodoList from '../components/TodoList';
 import Calendar from '../components/Calendar';
 import { getTasks, addTask, updateTask, deleteTask, saveTasks } from '../utils/storage';
 import { jwtDecode } from 'jwt-decode';
+import { addTaskApi } from '../api/taskApi';
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
+const addTaskEndpoint = `http://${baseUrl}:15000/api/v1/task/add`;
+
 
 const Dashboard = ({ user, onLogout }) => {
   const [tasks, setTasks] = useState([]);
@@ -27,27 +32,35 @@ const Dashboard = ({ user, onLogout }) => {
     setTasks(userTasks);
   }, [user]);
 
-  const handleAddTask = () => {
-    if (!newTaskName.trim()) return;
-    
-    setIsAdding(true);
+const handleAddTask = async () => {
+  // Do nothing if input is empty
+  if (!newTaskName.trim()) return;
 
-    setTimeout(() => {
-        const newTask = {
-            id: Date.now().toString(),
-            name: newTaskName,
-            completed: false,
-            priority: "medium",
-            timeSessions: [],
-            createdAt: new Date().toISOString(),
-        };
+  setIsAdding(true);
 
-        const updatedTasks = addTask(user.id, newTask);
-        setTasks(updatedTasks);
-        setNewTaskName("");
-        setIsAdding(false);
-    }, 300);
+  // Prepare task payload for backend
+  const newTask = {
+    name: newTaskName,
+    description: '',
+    priority: 'MEDIUM', // match backend enum
+    addedDate: new Date().toISOString().split('T')[0], // yyyy-MM-dd for LocalDate
+    isCompleted: false,
   };
+
+  try {
+    // Call backend API; pass accessToken if available
+    const savedTask = await addTaskApi(newTask, user?.accessToken || null);
+
+    // Update state with the saved task returned from backend
+    setTasks(prevTasks => [...prevTasks, savedTask]);
+    setNewTaskName('');
+  } catch (error) {
+    console.error('Failed to add task:', error);
+  } finally {
+    setIsAdding(false);
+  }
+};
+
 
   const handleUpdateTask = (taskId, updates) => {
     const updatedTasks = updateTask(user.id, taskId, updates);
