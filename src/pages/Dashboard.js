@@ -20,7 +20,7 @@ const Dashboard = ({ user, onLogout }) => {
     if (user && user.accessToken) {
       try {
         const decodedToken = jwtDecode(user.accessToken);
-        setUserName(decodedToken.sub); // Assuming 'sub' claim contains the username
+        setUserName(decodedToken.fullName);
       } catch (error) {
         console.error('Error decoding token:', error);
         setUserName('Guest'); // Fallback
@@ -42,7 +42,7 @@ const handleAddTask = async () => {
   const newTask = {
     name: newTaskName,
     description: '',
-    priority: 'MEDIUM', // match backend enum
+    priority: 'Medium', // match backend enum
     addedDate: new Date().toISOString().split('T')[0], // yyyy-MM-dd for LocalDate
     isCompleted: false,
   };
